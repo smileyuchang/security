@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.modules.power.dao.PowerWaterDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.renren.modules.power.entity.PowerWaterEntity" id="powerWaterMap">
+        <result property="id" column="id"/>
+        <result property="waterMeter" column="water_meter"/>
+        <result property="userId" column="user_id"/>
+    </resultMap>
+
+    <!--承租方用水量信息-->
+    <select id="queryList"  resultType="map">
+       SELECT
+        su.username,
+        IFNULL( pw.water_meter, 0 ) water_meter,
+        su.water_number,
+        su.mobile
+    FROM
+        sys_user su
+        LEFT JOIN power_water pw ON su.water_number = pw.water_number
+    WHERE
+        su.type = 1
+    </select>
+
+</mapper>

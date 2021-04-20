@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.modules.power.dao.PowerElectricDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.renren.modules.power.entity.PowerElectricEntity" id="powerElectricMap">
+        <result property="id" column="id"/>
+        <result property="degree" column="degree"/>
+        <result property="userId" column="user_id"/>
+        <result property="electricNumber" column="electric_number"/>
+        <result property="payTime" column="pay_time"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <select id="queryElectricList" resultType="map">
+         SELECT
+        su.username,
+        IFNULL( pe.degree, 0 ) degree,
+        su.degree_number,
+        su.mobile,
+        pe.pay_time,
+        pe.create_time
+    FROM
+        sys_user su
+        LEFT JOIN power_electric pe ON su.degree_number = pe.electric_number
+    WHERE
+        su.type = 1
+    </select>
+
+</mapper>
