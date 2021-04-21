@@ -6,6 +6,29 @@
 </head>
 <body>
 <div id="rrapp" v-cloak>
+    <!--用户导入模态框  -->
+    <div class="modal fade panel panel-default" id="importModal" style="margin-top:15%;margin-left:30%;height:40%;width:30%;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="panel-heading">水量信息导入</div>
+        <form id="resume_frm">
+            <input type="hidden" name="userId" />
+            <div class="form-group" style="text-align:center; margin-top:10%;" >
+                <div class="col-sm-4 control-label" >选择文件</div>
+                <div class="col-sm-8" >
+                    <input type="file" name="file" multiple id="fileupload" >
+                </div>
+            </div>
+            <br>
+            <div class="form-group" style="text-align:center;margin-top:10%;">
+                <button type="button" @click="uploadFile"  class="btn btn-default">提交</button>
+                <button type="button" @click="importModelHide"  class="btn btn-default">取消</button>
+            </div>
+        </form>
+    </div>
+
+
+
+
+
     <div v-show="showList">
         <div class="grid-btn">
 			<#if shiro.hasPermission("sys:powerwater:save")>
@@ -17,6 +40,7 @@
 			<#if shiro.hasPermission("sys:powerwater:delete")>
             <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
 			</#if>
+            <a class="btn btn-primary xgstyle"   @click="importUser"><i class="fa fa-pencil-square-o"></i>&nbsp;导入</a>
         </div>
         <table id="jqGrid"></table>
         <div id="jqGridPager"></div>
@@ -25,19 +49,31 @@
     <div v-show="!showList" class="panel panel-default">
         <div class="panel-heading">{{title}}</div>
         <form class="form-horizontal">
-														                    <div class="form-group">
-                        <div class="col-sm-2 control-label">水表数值</div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="powerWater.waterMeter" placeholder="水表数值"/>
-                        </div>
-                    </div>
-											                    <div class="form-group">
-                        <div class="col-sm-2 control-label">承租方id</div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="powerWater.userId" placeholder="承租方id"/>
-                        </div>
-                    </div>
-							            <div class="form-group">
+            <div class="form-group">
+                <div class="col-sm-2 control-label">水表数值</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="powerWater.waterMeter" placeholder="水表数值"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">水号</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="powerWater.waterNumber" placeholder="水号"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">收费时间</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="powerWater.payTime" placeholder="收费时间"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">创建时间</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="powerWater.createTime" placeholder="创建时间"/>
+                </div>
+            </div>
+            <div class="form-group">
                 <div class="col-sm-2 control-label"></div>
                 <input type="button" class="btn btn-primary" id="btnSaveOrUpdate" data-loading-text="保存中..." @click="saveOrUpdate" value="确定"/>
                 &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
@@ -47,5 +83,6 @@
 </div>
 
 <script src="${request.contextPath}/statics/js/modules/power/powerwater.js?_${.now?long}"></script>
+<script src="${request.contextPath}/statics/libs/jquery-form.js"></script>
 </body>
 </html>

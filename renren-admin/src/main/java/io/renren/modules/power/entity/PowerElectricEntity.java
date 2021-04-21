@@ -39,7 +39,7 @@ public class PowerElectricEntity implements Serializable {
 	/**
 	 * 收费时间
 	 */
-	private Date payTime;
+	private String payTime;
 	/**
 	 * 创建时间
 	 */

@@ -3,7 +3,7 @@ $(function () {
         url: baseURL + 'power/powercoalgas/list',
         datatype: "json",
         colModel: [			
-			//{ label: 'id', name: 'id', index: 'id', width: 50, key: true },
+			{ label: 'id', name: 'id', index: 'id', width: 50, key: true },
             { label: '承租方', name: 'username', index: 'username', width: 80 },
             { label: '手机号', name: 'mobile', index: 'mobile', width: 80 },
 			{ label: '煤气用量', name: 'number', index: 'number', width: 80 }, 			
@@ -49,6 +49,46 @@ var vm = new Vue({
 		query: function () {
 			vm.reload();
 		},
+
+        importUser: function(){//导入用户
+            //var userId = getSelectedRow();
+            //vm.q.userId = userId;
+            //if (userId != null){
+            $('#importModal').modal();
+            //}
+        },
+
+        uploadFile: function (event) {
+            $("#resume_frm").ajaxSubmit({
+                type:"post",
+                url:baseURL + "power/powercoalgas/importCoalgas",
+                dataType:"json",
+                beforeSend:function(xhr){
+                    $('#importModal').modal('hide');
+                    layer.msg('导入中...', {
+                        icon: 16,
+                        shade: 0.5,
+                        time:false // 取消自动关闭
+                    });
+                },
+                success:function(data){
+                    // vm.q.userId = null;
+                    layer.alert(data.msg, {
+                        icon: 1,
+                        skin: 'layer-ext-moon'
+                    })
+                    // layer.closeAll('loading');
+                    vm.reload();
+                } // end success
+            });
+        },
+
+        importModelHide:function(){
+            $('#importModal').modal('hide');
+        },
+
+
+
 		add: function(){
 			vm.showList = false;
 			vm.title = "新增";

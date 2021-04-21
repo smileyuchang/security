@@ -6,6 +6,7 @@ package io.renren.modules.sys.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import io.renren.api.user.entity.UserEntity;
 import io.renren.common.annotation.DataFilter;
 import io.renren.common.exception.RRException;
 import io.renren.common.utils.Constant;
@@ -113,8 +114,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
 		try {
 			for (String[] s : list) {
 				if (s != null && s[0] != null && s[0] != "" && s[0].indexOf(" ") == -1) {
-					//System.out.println(s[0]);
-					//System.out.println(s[1]);
+					//判断用户是否存在，如果已存在则跳过
+					if(null != baseMapper.selectOne(new QueryWrapper<SysUserEntity>().eq("username", s[0]))){
+						continue;
+					}
 					SysUserEntity sysUserEntity = new SysUserEntity();
 					sysUserEntity.setUsername(s[0]);
 					//String salt = RandomStringUtils.randomAlphanumeric(20);

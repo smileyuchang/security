@@ -15,15 +15,16 @@
 
     <select id="queryElectricList" resultType="map">
          SELECT
-        su.username,
-        IFNULL( pe.degree, 0 ) degree,
-        su.degree_number,
-        su.mobile,
-        pe.pay_time,
-        pe.create_time
+            pe.id,
+            su.username,
+            IFNULL( pe.degree, 0 ) degree,
+            su.degree_number,
+            su.mobile,
+            pe.pay_time,
+            pe.create_time
     FROM
-        sys_user su
-        LEFT JOIN power_electric pe ON su.degree_number = pe.electric_number
+        power_electric pe
+        LEFT JOIN  sys_user su ON su.degree_number = pe.electric_number
     WHERE
         su.type = 1
     </select>

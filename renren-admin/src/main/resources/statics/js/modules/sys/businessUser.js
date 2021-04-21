@@ -101,7 +101,7 @@ var vm = new Vue({
                     });
                 },
                 success:function(data){
-                    vm.q.userId = null;
+                    //vm.q.userId = null;
                     layer.alert(data.msg, {
                         icon: 1,
                         skin: 'layer-ext-moon'

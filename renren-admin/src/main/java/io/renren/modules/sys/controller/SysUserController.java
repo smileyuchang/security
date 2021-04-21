@@ -143,7 +143,13 @@ public class SysUserController extends AbstractController {
 		return R.ok();
 	}
 
-
+	/**
+	 * 导入用户
+	 * @param file
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/importExcel")
 	public R ImportExcel(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws Exception {
 

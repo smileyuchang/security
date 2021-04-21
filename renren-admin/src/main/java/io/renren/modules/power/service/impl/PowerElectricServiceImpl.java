@@ -1,6 +1,11 @@
 package io.renren.modules.power.service.impl;
 
+import io.renren.common.exception.RRException;
+import io.renren.modules.power.entity.PowerWaterEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -27,6 +32,32 @@ public class PowerElectricServiceImpl extends ServiceImpl<PowerElectricDao, Powe
 
         //return new PageUtils(page);
         return new PageUtils(list);
+    }
+
+    @Override
+    public void importElectric(List<String[]> list) {
+
+        String msg = "";
+        try {
+            for (String[] s : list) {
+                if (s != null && s[0] != null && s[0] != "" && s[0].indexOf(" ") == -1) {
+                    //判断用户是否存在，如果已存在则跳过
+                    if(null != baseMapper.selectOne(new QueryWrapper<PowerElectricEntity>().eq("electric_number", s[0]))){
+                        continue;
+                    }
+
+                    PowerElectricEntity powerElectricEntity = new PowerElectricEntity();
+                    powerElectricEntity.setCreateTime(new Date());
+                    powerElectricEntity.setElectricNumber(s[0]);
+                    powerElectricEntity.setDegree(Double.valueOf(s[1]));
+                    powerElectricEntity.setPayTime(s[2]);
+                    this.save(powerElectricEntity);
+                }
+            }
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            throw new RRException(msg + "数据有问题");
+        }
     }
 
 }

@@ -16,6 +16,7 @@
 
     <select id="queryCoalGasList" resultType="map">
          SELECT
+            pcg.id,
             su.username,
             IFNULL( pcg.number, 0 ) number,
             su.coal_gas_number,
@@ -23,8 +24,8 @@
             pcg.pay_time,
             pcg.create_time
         FROM
-            sys_user su
-            LEFT JOIN power_coal_gas pcg ON su.coal_gas_number = pcg.coal_gas_number
+            power_coal_gas pcg
+            LEFT JOIN  sys_user su ON su.coal_gas_number = pcg.coal_gas_number
         WHERE
             su.type = 1
     </select>

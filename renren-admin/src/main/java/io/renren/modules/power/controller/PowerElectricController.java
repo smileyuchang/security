@@ -1,8 +1,10 @@
 package io.renren.modules.power.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import io.renren.common.utils.ExcelUtil;
 import io.renren.common.validator.ValidatorUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,9 @@ import io.renren.modules.power.entity.PowerElectricEntity;
 import io.renren.modules.power.service.PowerElectricService;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.R;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -88,5 +92,34 @@ public class PowerElectricController {
 
         return R.ok();
     }
+
+    /**
+     * 导入用电量信息
+     * @param file
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/importElectric")
+    public R importElectric(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws Exception {
+
+        String msg;
+        if (file.isEmpty()) {
+            msg = "上传文件不能为空";
+            return R.error(msg);
+        }
+
+        //解析上传 excel
+        List<String[]> list = ExcelUtil.getExcelData(file);
+        if (list != null && list.size() > 0) {
+
+            //保存excel表格逻辑
+            powerElectricService.importElectric(list);
+            return R.ok("导入成功");
+        } else {
+            return R.ok("请勿上传空excel");
+        }
+    }
+
 
 }

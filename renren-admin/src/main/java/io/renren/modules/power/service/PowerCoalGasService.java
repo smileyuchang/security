@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import io.renren.common.utils.PageUtils;
 import io.renren.modules.power.entity.PowerCoalGasEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,5 +17,7 @@ import java.util.Map;
 public interface PowerCoalGasService extends IService<PowerCoalGasEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    void importCoalgas(List<String[]> list);
 }
 
