@@ -46,4 +46,28 @@ public class UserEntity implements Serializable {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date createTime;
 
+	/**
+	 * 1代表承租方
+	 */
+	private Integer type;
+	/**
+	 * 水号
+	 */
+	private String waterNumber;
+	/**
+	 * 电号
+	 */
+	private String degreeNumber;
+	/**
+	 * 燃气号
+	 */
+	private String coalGasNumber;
+
+
+	/**
+	 * 昵称
+	 */
+	private String nikeName;
+
+
 }

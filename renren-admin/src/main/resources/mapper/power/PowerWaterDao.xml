@@ -17,12 +17,48 @@
         su.username,
         IFNULL( pw.water_meter, 0 ) water_meter,
         su.water_number,
-        su.mobile
+        su.mobile,
+        pw.pay_time
     FROM
         power_water pw
         LEFT JOIN sys_user su ON su.water_number = pw.water_number
     WHERE
         su.type = 1
+    </select>
+
+
+    <!--水用量信息-->
+    <select id="queryByWaterNumber"  resultType="map">
+          SELECT
+            pw.id,
+            su.username,
+            IFNULL( pw.water_meter, 0 ) water_meter,
+            su.water_number,
+            su.mobile,
+            pw.pay_time
+            FROM
+                power_water pw
+                LEFT JOIN sys_user su ON su.water_number = pw.water_number
+            WHERE
+                su.water_number = #{waterNumber}
+    </select>
+
+
+
+    <select id="queryWaterMonth" resultType="map">
+         SELECT
+            pw.id,
+            su.username,
+            IFNULL( pw.water_meter, 0 ) water_meter,
+            su.water_number,
+            su.mobile,
+            pw.pay_time
+            FROM
+                power_water pw
+                LEFT JOIN sys_user su ON su.water_number = pw.water_number
+            WHERE
+                su.water_number = #{waterNumber}
+                AND pw.pay_time = #{month}
     </select>
 
 </mapper>

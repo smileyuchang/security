@@ -19,5 +19,9 @@ public interface PowerElectricService extends IService<PowerElectricEntity> {
     PageUtils queryPage(Map<String, Object> params);
 
     void importElectric(List<String[]> list);
+
+    List<Map<String,Object>> queryByDegreeNumber(Map<String, Object> params);
+
+    Map<String,Object> queryElectricMonth(Map<String, Object> params);
 }
 

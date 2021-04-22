@@ -29,4 +29,38 @@
         su.type = 1
     </select>
 
+    <!-- 用户用电量信息   -->
+    <select id="queryByDegreeNumber" resultType="map">
+         SELECT
+                    pe.id,
+                    su.username,
+                    IFNULL( pe.degree, 0 ) degree,
+                    su.degree_number,
+                    su.mobile,
+                    pe.pay_time,
+                    pe.create_time
+            FROM
+                power_electric pe
+                LEFT JOIN  sys_user su ON su.degree_number = pe.electric_number
+            WHERE
+                su.degree_number = #{degreeNumber}
+    </select>
+
+    <select id="queryElectricMonth" resultType="map">
+         SELECT
+                    pe.id,
+                    su.username,
+                    IFNULL( pe.degree, 0 ) degree,
+                    su.degree_number,
+                    su.mobile,
+                    pe.pay_time,
+                    pe.create_time
+            FROM
+                power_electric pe
+                LEFT JOIN  sys_user su ON su.degree_number = pe.electric_number
+            WHERE
+                su.degree_number = #{degreeNumber}
+                AND pe.pay_time = #{month}
+    </select>
+
 </mapper>

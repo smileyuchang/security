@@ -54,8 +54,19 @@ public class PowerWaterServiceImpl extends ServiceImpl<PowerWaterDao, PowerWater
             }
         } catch (NumberFormatException e) {
             e.printStackTrace();
-            throw new RRException(msg + "数据有问题");
+            throw new RRException(msg + "数据有误");
         }
+    }
+
+    @Override
+    public List<Map<String, Object>> queryByWaterNumber(Map<String, Object> params) {
+        List<Map<String, Object>>  resulstMap = this.baseMapper.queryByWaterNumber(params);
+        return resulstMap;
+    }
+
+    @Override
+    public Map<String, Object> queryWaterMonth(Map<String, Object> params) {
+      return this.baseMapper.queryWaterMonth(params);
     }
 
 }

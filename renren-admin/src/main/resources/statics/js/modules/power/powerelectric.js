@@ -50,6 +50,15 @@ var vm = new Vue({
 			vm.reload();
 		},
 
+
+
+        exportTemplate:function(){//导出模板
+            var url = baseURL+"power/powerelectric/exportTemplate";
+            window.location.href = url;
+        },
+
+
+
         importUser: function(){//导入用户
             //var userId = getSelectedRow();
             //vm.q.userId = userId;

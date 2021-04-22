@@ -1,11 +1,10 @@
 package io.renren.modules.power.controller;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import io.renren.common.utils.ExcelUtil;
 import io.renren.common.validator.ValidatorUtils;
+import io.renren.modules.power.entity.PowerWaterEntity;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +20,7 @@ import io.renren.common.utils.R;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -119,6 +119,26 @@ public class PowerElectricController {
         } else {
             return R.ok("请勿上传空excel");
         }
+    }
+
+
+
+    /**
+     * 下载导入电表信息模板
+     * @param response
+     * @return
+     */
+    @RequestMapping("/exportTemplate")
+    public R exportTemplate(HttpServletResponse response) {
+
+        LinkedHashMap<String, String> fieldMap = new LinkedHashMap<>();
+        fieldMap.put("electricNumber", "电号");
+        fieldMap.put("degree", "电表数值");
+        fieldMap.put("payTime", "收费时间");
+        List<PowerElectricEntity> electricList = new ArrayList<>();
+        electricList.add(new PowerElectricEntity());
+        ExcelUtil.listToExcel(electricList, fieldMap, "electric", response);
+        return R.ok();
     }
 
 

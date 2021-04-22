@@ -77,6 +77,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
 		String salt = RandomStringUtils.randomAlphanumeric(20);
 		user.setSalt(salt);
 		user.setPassword(ShiroUtils.sha256(user.getPassword(), user.getSalt()));
+		user.setType(1);
+		user.setStatus(1);
 		this.save(user);
 		
 		//保存用户与角色关系
@@ -130,6 +132,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
 					sysUserEntity.setCoalGasNumber(s[5]);
 					sysUserEntity.setType(1);
 					sysUserEntity.setCreateTime(new Date());
+					sysUserEntity.setStatus(1);
 					this.save(sysUserEntity);
 				}
 			}

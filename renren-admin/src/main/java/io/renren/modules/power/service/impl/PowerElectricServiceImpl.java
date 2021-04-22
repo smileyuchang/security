@@ -60,4 +60,16 @@ public class PowerElectricServiceImpl extends ServiceImpl<PowerElectricDao, Powe
         }
     }
 
+    @Override
+    public List<Map<String, Object>> queryByDegreeNumber(Map<String, Object> params) {
+        List<Map<String, Object>>  resulstMap = this.baseMapper.queryByDegreeNumber(params);
+        return resulstMap;
+    }
+
+    @Override
+    public Map<String, Object> queryElectricMonth(Map<String, Object> params) {
+
+        return  this.baseMapper.queryElectricMonth(params);
+    }
+
 }

@@ -30,4 +30,40 @@
             su.type = 1
     </select>
 
+
+    <!--用户煤气使用情况-->
+    <select id="queryByCoalGasNumber" resultType="map">
+         SELECT
+            pcg.id,
+            su.username,
+            IFNULL( pcg.number, 0 ) number,
+            su.coal_gas_number,
+            su.mobile,
+            pcg.pay_time,
+            pcg.create_time
+        FROM
+            power_coal_gas pcg
+            LEFT JOIN  sys_user su ON su.coal_gas_number = pcg.coal_gas_number
+        WHERE
+            su.coal_gas_number = #{coalGasNumber}
+    </select>
+
+    <!--当月用煤量信息-->
+    <select id="queryCoalgasMonth" resultType="map">
+        SELECT
+            pcg.id,
+            su.username,
+            IFNULL( pcg.number, 0 ) number,
+            su.coal_gas_number,
+            su.mobile,
+            pcg.pay_time,
+            pcg.create_time
+        FROM
+            power_coal_gas pcg
+            LEFT JOIN  sys_user su ON su.coal_gas_number = pcg.coal_gas_number
+        WHERE
+            su.coal_gas_number = #{coalGasNumber}
+            AND pcg.pay_time = #{month}
+    </select>
+
 </mapper>

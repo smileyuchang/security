@@ -61,4 +61,15 @@ public class PowerCoalGasServiceImpl extends ServiceImpl<PowerCoalGasDao, PowerC
 
     }
 
+    @Override
+    public List<Map<String, Object>> queryByCoalGasNumber(Map<String, Object> params) {
+        List<Map<String, Object>>  resulstMap = this.baseMapper.queryByCoalGasNumber(params);
+        return resulstMap;
+    }
+
+    @Override
+    public Map<String, Object> queryCoalgasMonth(Map<String, Object> params) {
+        return  this.baseMapper.queryCoalgasMonth(params);
+    }
+
 }

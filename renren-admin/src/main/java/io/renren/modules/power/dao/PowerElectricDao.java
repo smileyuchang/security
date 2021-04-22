@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,4 +20,8 @@ import java.util.Map;
 public interface PowerElectricDao extends BaseMapper<PowerElectricEntity> {
 
     IPage<Map<String,Object>> queryElectricList(IPage<Map<String, Object>> page, @Param("params")Map<String, Object> params);
+
+    List<Map<String,Object>> queryByDegreeNumber(Map<String,Object> params);
+
+    Map<String,Object> queryElectricMonth(Map<String,Object> params);
 }

@@ -19,5 +19,9 @@ public interface PowerWaterService extends IService<PowerWaterEntity> {
     PageUtils queryPage(Map<String, Object> params);
 
     void importWorter(List<String[]> list);
+
+    List<Map<String,Object>> queryByWaterNumber(Map<String, Object> params);
+
+    Map<String,Object> queryWaterMonth(Map<String, Object> params);
 }
 

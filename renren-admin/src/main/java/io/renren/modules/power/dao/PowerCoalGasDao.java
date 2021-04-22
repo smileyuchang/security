@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,5 +20,7 @@ import java.util.Map;
 public interface PowerCoalGasDao extends BaseMapper<PowerCoalGasEntity> {
 
     IPage<Map<String,Object>> queryCoalGasList(IPage<Map<String, Object>> page, @Param("params")Map<String, Object> params);
+    List<Map<String,Object>> queryByCoalGasNumber(Map<String, Object> params);
+    Map<String,Object> queryCoalgasMonth(Map<String, Object> params);
 
 }

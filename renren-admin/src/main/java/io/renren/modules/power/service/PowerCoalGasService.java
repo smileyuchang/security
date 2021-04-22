@@ -19,5 +19,10 @@ public interface PowerCoalGasService extends IService<PowerCoalGasEntity> {
     PageUtils queryPage(Map<String, Object> params);
 
     void importCoalgas(List<String[]> list);
+
+    List<Map<String,Object>> queryByCoalGasNumber(Map<String, Object> params);
+
+
+    Map<String,Object> queryCoalgasMonth(Map<java.lang.String, java.lang.Object> params);
 }
 
